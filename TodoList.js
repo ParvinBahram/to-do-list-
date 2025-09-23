@@ -44,7 +44,7 @@ result+= `<li class="todo">
 <span class="todo__createdAt">${new Date(todo.createdAt).toLocaleDateString("fa-IR")}</span>
 <button class="todo__check" data-todo-id=${todo.id} ><i class="far fa-check-square"></i></button>
 <button class="todo__remove" data-todo-id=${todo.id} ><i class=" far fa-trash-alt"></i></button>
-<button class = "todo__edit" data-todo-id=${todo.id} > <i class="fa-solid fa-pen"></i><button>
+<button class ="todo__edit" data-todo-id=${todo.id} ><i class="fas fa-pen"></i></button>
 </li>`;
 });
   todoList.innerHTML = result;
@@ -56,7 +56,7 @@ result+= `<li class="todo">
   checkBtn.forEach((btn)=> btn.addEventListener("click", CheckTodo))
 
   const editBtn = [...document.querySelectorAll(".todo__edit")];
-  editBtn.forEach((btn)=> btn.addEventListener("click", EditTodo()));
+  editBtn.forEach((btn)=> btn.addEventListener("click", EditTodo));
 }
 
 
@@ -116,3 +116,5 @@ function saveTodo(todo){
 function saveAllTodos(todos){
   localStorage.setItem("todos",JSON.stringify(todos));
 }
+
+
