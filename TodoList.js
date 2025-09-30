@@ -118,3 +118,66 @@ function saveAllTodos(todos){
 }
 
 
+function EditTodo(e){
+  const todoId = Number(e.currentTarget.dataset.todoId);
+  const todoItem = e.currentTarget.closest(".todo");
+
+  if (!todoItem) return;
+
+  const titleP = todoItem.querySelector(".todo__title");
+    if (!titleP) return;
+
+    const originalText = titleP.textContent.trim();
+    const wasCompleted = titleP.classList.contains("completed");
+
+    const input = document.createElement('input');
+    input.type = 'text';
+
+    input.className = "todo__title todo__edit-input" ;
+    input.value = originalText ;
+    input.setAttribute("aria-label" , "ویرایش عنوان تودو");
+
+    titleP.replaceWith(input);
+    input.focus();
+    input.setSelectionRange(input.value.length, input.value.length);
+
+    let canceled = false ;
+
+    const finishEdit = (save)=> {
+      if(save && !canceled ){
+        saveEditedTodo(todoId, input.value.trim())
+      }else{
+        const p = document.createElement('p');
+        p.className = "todo__title" + (wasCompleted ? " completed " : "");
+        p.textContent = originalText;
+        input.replaceWith(p);
+      }
+    }
+
+    input.addEventListener('keydown', (ev) => {
+      if(ev.key === 'Escape'){
+        canceled =true;
+        finishEdit(false);
+      } 
+      else if(ev.key === 'Enter') finishEdit(true);
+    });
+
+    input.addEventListener('blur', ()=>{
+      finishEdit(true);
+    });
+}
+
+function saveEditedTodo(todoId, newTitle){
+  if (!newTitle) return FilterTodos();
+
+  const todos = getAllTodos();
+  
+  const todo = todos.find((t) => t.id === todoId);
+  if(!todo) return ;
+
+  todo.title = newTitle;
+
+  saveAllTodos(todos);
+
+  FilterTodos();
+}

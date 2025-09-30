@@ -123,6 +123,9 @@ form button:hover {
 .fa-check-square {
   color: var(--primaryColor);
 }
+.fa-pen{
+  color: var(--primaryColor)
+}
 .completed {
   text-decoration: line-through;
   opacity: 0.5;
@@ -175,4 +178,12 @@ option{
 .filter-todos{
     font-weight: bold;
 
+}
+
+.todo__edit-input{
+  border : 1px solid #777272;
+  padding: 5px  8px;
+  font-size: 1rem;
+  border-radius: 5px;
+  width:80%;
 }
